@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mentor Approval Form</title>
+  <link rel="stylesheet" href="mentor.css">
+  <link rel="icon" href="/favicon.ico">
+</head>
+<body>
+  <div class="form-container">
+    <h1>Mentor Approval Form</h1>
+    <form>
+      <label for="mentor-name">Mentor Name:</label>
+      <input type="text" id="mentor-name" name="mentor-name" placeholder="Enter mentor's name" required>
+
+      <label for="mentor-srn">Mentor SRN:</label>
+      <input type="text" id="mentor-srn" name="mentor-srn" placeholder="Enter mentor's SRN" required>
+
+      <label for="event-details">Event Details:</label>
+      <textarea id="event-details" name="event-details" rows="4" placeholder="Enter event details" required></textarea>
+
+      <label>Approval Status:</label>
+      <div class="approval-options">
+        <label><input type="radio" name="approval" value="approve" required> Approve</label>
+        <label><input type="radio" name="approval" value="disapprove" onclick="toggleDescription(true)"> Disapprove</label>
+      </div>
+      <div id="disapproval-box" style="display: none;">
+        <label for="disapproval-reason">Reason for Disapproval:</label>
+        <textarea id="disapproval-reason" name="disapproval-reason" rows="4" placeholder="Enter reason for disapproval"></textarea>
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    function toggleDescription(show) {
+      const box = document.getElementById('disapproval-box');
+      box.style.display = show ? 'block' : 'none';
+    }
+  </script>
+</body>
+</html>

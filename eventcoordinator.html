@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Coordinator Form</title>
+    <style>
+        /* External CSS Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('background.jpg'); /* Add your background image file in the same directory */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #0c0b0b;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: 100px auto;
+            background: rgba(255, 242, 225, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #f4b400;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        .buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+        .approve {
+            background: #28a745;
+            color: #fff;
+        }
+        .approve:hover {
+            background: #218838;
+        }
+        .disapprove {
+            background: #dc3545;
+            color: #fff;
+        }
+        .disapprove:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Event Coordinator Form</h2>
+        <form>
+            <label for="event-name">Event Name:</label>
+            <input type="text" id="event-name" name="event-name" placeholder="event name" required>
+            
+            <label for="prof-name">Professor's Name:</label>
+            <input type="text" id="prof-name" name="prof-name" placeholder=" professor name" required>
+            
+            <label for="prof-srn">Professor's SRN:</label>
+            <input type="text" id="prof-srn" name="prof-srn" placeholder="professor SRN" required>
+            
+            <div class="buttons">
+                <button type="button" class="approve">Approve</button>
+                <button type="button" class="disapprove">Disapprove</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

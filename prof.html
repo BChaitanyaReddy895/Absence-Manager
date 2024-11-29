@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .dropdown-container {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            position: relative;
+        }
+        .dropdown {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+        }
+        .dropdown:after {
+            content: '▼';
+            font-size: 12px;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+        .dropdown-options {
+            display: none;
+            position: absolute;
+            top: 110%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            z-index: 1000;
+            max-height: 150px;
+            overflow-y: auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .dropdown-options div {
+            padding: 10px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        .dropdown-options div:hover {
+            background: #f0f0f0;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #fafafa;
+            color: #333;
+            text-align: center;
+        }
+        .additional-section {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .additional-section p {
+            margin-bottom: 10px;
+            color: #555;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px auto;
+            font-size: 14px;
+            color: #fff;
+            background: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Registration</h1>
+        <div class="dropdown-container">
+            <div id="dropdown" class="dropdown" onclick="toggleDropdown()">
+                Select an event
+            </div>
+            <div id="dropdown-options" class="dropdown-options">
+                <div onclick="selectOption('Face event')">Face event</div>
+                <div onclick="selectOption('Placement')">Placement</div>
+                <div onclick="selectOption('Internships')">Internships</div>
+                <div onclick="selectOption('Hackathon')">Hackathon</div>
+            </div>
+        </div>
+        <div id="output" class="output">Your selection will appear here</div>
+
+        <div class="additional-section">
+            <p>Are you a mentor? If yes, please register:</p>
+            <a href="mentor_registration.html" class="button">Register Here</a>
+            <br>
+            <a href="#" class="button">Register as Event Coordinator</a>
+        </div>
+    </div>
+
+    <script>
+        function toggleDropdown() {
+            const options = document.getElementById('dropdown-options');
+            options.style.display = options.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function selectOption(option) {
+            const output = document.getElementById('output');
+            const dropdown = document.getElementById('dropdown');
+            output.textContent = `You selected: ${option}`;
+            dropdown.textContent = option;
+            document.getElementById('dropdown-options').style.display = 'none';
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdownContainer = document.querySelector('.dropdown-container');
+            if (!dropdownContainer.contains(event.target)) {
+                document.getElementById('dropdown-options').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

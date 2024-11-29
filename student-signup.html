@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Signup</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('background.jpg'); /* Replace with your image */
+            
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f4; /* Fallback if image fails */
+        }
+        .container {
+            text-align: center;
+            background: rgba(255, 242, 225, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+            top: -60px;
+            width: 600px;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .input-field {
+            padding: 10px;
+            margin: 10px 0;
+            width: 90%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .input-field:focus {
+            border-color: orange;
+            outline: none;
+            box-shadow: 0 0 5px orange;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: orange;
+            color: white;
+            font-weight: bold;
+        }
+        .button:hover {
+            background-color: darkorange;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Student Signup</h1>
+        <form action="signup.php" method="POST">
+            <label for="full_name">Full Name:</label><br>
+            <input type="text" id="full_name" name="full_name" placeholder="Enter Full Name" class="input-field" required><br>
+            
+            <label for="SRN">SRN:</label><br>
+            <input type="text" id="SRN" name="SRN" placeholder="SRN" class="input-field" required maxlength="10" pattern="[a-zA-Z0-9]+" title="Alphanumeric only"><br>
+            
+            <label for="REVA_Email_id">Reva Email:</label><br>
+            <input type="email" id="REVA_Email_id" name="REVA_Email_id" placeholder="Reva Email" class="input-field" required><br>
+            
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" placeholder="Password" class="input-field" required minlength="8" title="Password must be at least 8 characters"><br>
+            
+            <label for="phone_number">Phone Number:</label><br>
+            <input type="tel" id="phone_number" name="phone_number" placeholder="Phone Number" class="input-field" required pattern="[0-9]{10}" title="Enter a valid 10-digit phone number"><br>
+            
+            <button type="submit" class="button">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

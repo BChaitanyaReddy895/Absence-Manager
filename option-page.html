@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave and Event Management System</title>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('background.jpg'); /* Replace with your image */
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            text-align: center;
+            background: rgba(255, 242, 225, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            Width:400px;
+
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .orange-button {
+            background-color: orange;
+            color: white;
+        }
+        .red-button {
+            background-color: orange;
+            color: white;
+        }
+        /* Form Specific Styles */
+        .form-container {
+            display: none; /* Hidden by default */
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            Width:400px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"], textarea, select, input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:disabled {
+            background-color: #ccc;
+        }
+        #message {
+            margin-top: 15px;
+            font-weight: bold;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <!-- Options Page -->
+    <div class="container" id="optionsPage">
+        <h1>Options</h1>
+        <button class="button orange-button" onclick="showForm('event')">Event Form</button>
+        <button class="button red-button" onclick="showForm('leave')">Leave Form</button>
+    </div>
+
+    <!-- Leave Form -->
+    <div class="form-container" id="leaveForm">
+        <h2>Leave Form</h2>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+            <label for="srn">SRN:</label>
+            <input type="text" id="srn" placeholder="Enter your SRN">
+        </div>
+        <div class="form-group">
+            <label for="course">Course:</label>
+            <input type="text" id="course" placeholder="Enter your course">
+        </div>
+        <div class="form-group">
+            <label for="section">Section:</label>
+            <select id="section">
+                <option value="">Select Section</option>
+                <option value="CSE A">CSE A</option>
+                <option value="CSE B">CSE B</option>
+                <option value="CSE C">CSE C</option>
+                <option value="CSE D">CSE D</option>
+                <option value="CSE E">CSE E</option>
+                <option value="CSE F">CSE F</option>
+                <option value="AI & DS A">AI & DS A</option>
+                <option value="AI & DS B">AI & DS B</option>
+                <option value="AI & DS C">AI & DS C</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="mentorName">Mentor Name:</label>
+            <input type="text" id="mentorName" placeholder="Enter mentor's name">
+        </div>
+        <div class="form-group">
+            <label for="mentorEmail">Mentor Email:</label>
+            <input type="text" id="mentorEmail" placeholder="Enter mentor's email">
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea id="description" rows="4" placeholder="Enter description of your leave request"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="upload">Upload Supporting Files:</label>
+            <input type="file" id="upload" multiple>
+        </div>
+        <button onclick="submitLeaveForm()">Submit Leave Form</button>
+        <p id="message"></p>
+    </div>
+
+    <!-- Event Form -->
+    <div class="form-container" id="eventForm">
+        <h2>Event Form</h2>
+        <div class="form-group">
+            <label for="eventName">Event Name:</label>
+            <input type="text" id="eventName" placeholder="Enter event name">
+        </div>
+        <div class="form-group">
+            <label for="eventDate">Event Date:</label>
+            <input type="text" id="eventDate" placeholder="Enter event date">
+        </div>
+        <div class="form-group">
+            <label for="eventDescription">Event Description:</label>
+            <textarea id="eventDescription" rows="4" placeholder="Enter event description"></textarea>
+        </div>
+        <button onclick="submitEventForm()">Submit Event Form</button>
+        <p id="eventMessage"></p>
+    </div>
+
+
+    <script>
+        // Function to show selected form
+        function showForm(formType) {
+            document.getElementById("optionsPage").style.display = "none";
+            document.getElementById("leaveForm").style.display = "none";
+            document.getElementById("eventForm").style.display = "none";
+
+            if (formType === "leave") {
+                document.getElementById("leaveForm").style.display = "block";
+            } else if (formType === "event") {
+                document.getElementById("eventForm").style.display = "block";
+            }
+        }
+
+        // Function to validate and submit the Leave form
+        function submitLeaveForm() {
+            const name = document.getElementById("name").value;
+            const srn = document.getElementById("srn").value;
+            const course = document.getElementById("course").value;
+            const section = document.getElementById("section").value;
+            const mentorName = document.getElementById("mentorName").value;
+            const mentorEmail = document.getElementById("mentorEmail").value;
+            const description = document.getElementById("description").value;
+
+            // Check if all required fields are filled
+            if (!name || !srn || !course || !section || !mentorName || !mentorEmail || !description) {
+                document.getElementById("message").innerText = "Please fill all the fields.";
+                return; // Stop execution if any field is empty
+            }
+
+            // Proceed if all fields are filled
+            document.getElementById("message").innerText = "Leave form submitted!";
+                
+            // Show Mentor review section
+            document.getElementById("mentorSection").style.display = "block";
+            document.getElementById("mentorDetails").innerText = `Name: ${name}, SRN: ${srn}, Course: ${course}, Section: ${section}, Description: ${description}`;
+        }
+
+        // Example event form submission
+        function submitEventForm() {
+            document.getElementById("eventMessage").innerText = "Event form submitted!";
+        }
+    </script>
+</body>
+</html>
