@@ -1,0 +1,46 @@
+selection=individual
+Raw Data: {"type":"selection_submission","data":{"selection":"individual"}}
+POST Data: Array
+(
+)
+
+Raw Data: {"type":"selection_submission","data":{"selection":"team"}}
+POST Data: Array
+(
+)
+
+Raw Data: {"type":"selection_submission","data":{"selection":"individual"}}
+POST Data: Array
+(
+)
+
+Raw Data: {"type":"selection_submission","data":{"selection":"individual"}}
+POST Data: Array
+(
+)
+
+Raw Data: {"type":"selection_submission","data":{"selection":"individual"}}
+POST Data: Array
+(
+)
+
+Raw Data: {"type":"selection_submission","data":{"selection":"team"}}
+POST Data: Array
+(
+)
+
+Raw Data: {"type":"selection_submission","data":{"selection":"individual"}}
+POST Data: Array
+(
+)
+
+Raw Data: {"type":"selection_submission","data":{"selection":"team"}}
+POST Data: Array
+(
+)
+
+Raw Data: {"type":"selection_submission","data":{"selection":"team"}}
+POST Data: Array
+(
+)
+

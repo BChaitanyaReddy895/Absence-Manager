@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index Page</title>
+    <link rel="icon" href="favicon.ico">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('https://media.getmyuni.com/azure/college-image/big/reva-university-revau-bangalore.jpg'); /* Replace with your image */
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            text-align: center;
+            background: rgba(255, 242, 225, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #000000;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .orange-button {
+            background-color: orange;
+            color: rgb(255, 246, 246);
+        }
+        .red-button {
+            background-color: orange;
+            color: rgb(255, 241, 241);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Choose Your Role</h1>
+        <!-- Redirect Student to Login Page -->
+        <a href="student-login.html"><button class="button orange-button">Student</button></a>
+        
+        <!-- Redirect Professor to Login Page -->
+        <a href="professor-login.html"><button class="button orange-button">Professor</button></a>
+        
+        <!-- Optional Status Button -->
+    </div>
+
+    <script type="text/javascript">
+        // Initialize WebSocket connection
+        var ws = new WebSocket('ws://localhost:8080');
+
+        ws.onopen = function() {
+            console.log('WebSocket connection established.');
+            // Send a message to the server indicating the user is on the index page
+            ws.send(JSON.stringify({ type: 'page_load', page: 'index' }));
+        };
+
+        ws.onmessage = function(event) {
+            console.log('Message from server:', event.data);
+            // Handle incoming messages from the server
+            var data = JSON.parse(event.data);
+            if (data.type === 'notification') {
+                alert(data.message);
+            }
+        };
+
+        ws.onclose = function() {
+            console.log('WebSocket connection closed.');
+        };
+
+        // Function to send messages to the server
+        function sendMessage(message) {
+            ws.send(JSON.stringify(message));
+        }
+    </script>
+</body>
+</html>

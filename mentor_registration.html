@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor Registration</title>
+    <link rel="icon" href="favicon.ico">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 14px;
+            color: #fff;
+            background: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+        .note {
+            text-align: center;
+            margin-top: 10px;
+            color: #555;
+        }
+        #message {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mentor Registration</h1>
+        <form id="registrationForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+            <label for="profNo">Prof Roll No:</label>
+            <input type="text" id="profNo" name="profNo" placeholder="Enter your Prof Roll No." required>
+
+            <label for="email">Reva Email ID:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+
+            <p class="note">Register as Mentor</p>
+            <button type="submit" class="button">Register</button>
+        </form>
+        <div id="message"></div>
+    </div>
+
+    <script type="text/javascript">
+        // Initialize WebSocket connection
+        var ws = new WebSocket('ws://localhost:8080');
+
+        ws.onopen = function() {
+            console.log('WebSocket connection established.');
+        };
+
+        ws.onmessage = function(event) {
+            console.log('Message from server:', event.data);
+            var data = JSON.parse(event.data);
+            if (data.type === 'registration_response') {
+                var messageDiv = document.getElementById('message');
+                if (data.success) {
+                    messageDiv.innerHTML = '<p style="color: green;">' + data.message + '</p>';
+                    if (data.redirect) {
+                        setTimeout(function() {
+                            window.location.href = data.redirect;
+                        }, 2000); // Redirect after 2 seconds
+                    }
+                } else {
+                    messageDiv.innerHTML = '<p style="color: red;">' + data.message + '</p>';
+                }
+            }
+        };
+
+        ws.onclose = function() {
+            console.log('WebSocket connection closed.');
+        };
+
+        // Handle form submission
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting the traditional way
+
+            var name = document.getElementById('name').value;
+            var profNo = document.getElementById('profNo').value;
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            var phone = document.getElementById('phone').value;
+
+            // Send registration data to the server
+            ws.send(JSON.stringify({
+                type: 'mentor_registration',
+                data: {
+                    name: name,
+                    profNo: profNo,
+                    email: email,
+                    password: password,
+                    phone: phone
+                }
+            }));
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login</title>
+    <link rel="icon" href="favicon.ico">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: orange;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .link {
+            display: block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: orange;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Student Login</h1>
+        <form id="loginForm">
+            <input type="email" id="REVA_Email_id" placeholder="Enter your Registered REVA Email ID" class="input-field" required><br>
+            <input type="password" id="password" placeholder="Enter Password" class="input-field" required><br>
+            <button type="submit" class="button">Login</button>
+        </form>
+        <a href="forgot-password.php" class="link">Forgot Password?</a>
+        <a href="student-signup.html" class="link">Don't have an account? Sign up here</a>
+    </div>
+
+    <script type="text/javascript">
+        // Initialize WebSocket connection
+        var ws = new WebSocket('ws://localhost:8080');
+
+        ws.onopen = function() {
+            console.log('WebSocket connection established.');
+        };
+
+        ws.onmessage = function(event) {
+            console.log('Message from server:', event.data);
+            var data = JSON.parse(event.data);
+            if (data.type === 'login_response') {
+                if (data.success) {
+                    alert(data.message); // Display success message
+                    if (data.redirect) {
+                        window.location.href = data.redirect; // Redirect to the specified page
+                    }
+                } else {
+                    alert(data.message); // Display error message
+                    if (data.redirect) {
+                        window.location.href = data.redirect; // Redirect to the specified page
+                    }
+                }
+            }
+        };
+
+        ws.onclose = function() {
+            console.log('WebSocket connection closed.');
+        };
+
+        // Handle form submission
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting the traditional way
+
+            var email = document.getElementById('REVA_Email_id').value;
+            var password = document.getElementById('password').value;
+
+            // Send login data to the server
+            ws.send(JSON.stringify({
+                type: 'login',
+                email: email,
+                password: password
+            }));
+        });
+    </script>
+</body>
+</html>

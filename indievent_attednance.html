@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Details Form</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to CSS file -->
+    <link rel="icon" href="favicon.ico">
+    <style>
+        /* Style for the entire page */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://media.getmyuni.com/azure/college-image/big/reva-university-revau-bangalore.jpg'); /* Replace with your image URL */
+            background-size:cover; /* Cover the entire background */
+            background-position: center;
+            background-repeat: no-repeat; /* Center the image */
+            font-family: Arial, sans-serif;
+        }
+
+        /* Container for the form */
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.5); /* 50% transparent white background */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Optional: shadow for depth */
+            width: 90%; /* Responsive width */
+            max-width: 600px; /* Maximum width */
+            margin: 0 auto; /* Center the container */
+        }
+
+        /* Form field styles */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        /* Button styles */
+        
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        .buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+        .approve {
+            background: #28a745;
+            color: #fff;
+        }
+        .approve:hover {
+            background: #218838;
+        }
+        .disapprove {
+            background: #dc3545;
+            color: #fff;
+        }
+        .disapprove:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Event Details Form For Attendance Coordinator</h2>
+        <form>
+            <div class="form-group">
+                <label for="name">Student Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="srn">SRN</label>
+                <input type="text" id="srn" name="srn" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Student Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Student Phone</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+            <div class="form-group">
+                <label for="event">Select Event</label>
+                <select id="event" name="event" required>
+                    <option value="">--Select an event--</option>
+                    <option value="HACKATHON">HACKATHON</option>
+                    <option value="FACE">FACE</option>
+                    <option value="SPORTS">SPORTS</option>
+                    <option value="PLACEMENT">PLACEMENT</option>
+                    <option value="INTERNSHIP">INTERNSHIP</option>
+                    <option value="FDP">FDP</option>
+                    <option value="OTHERS">OTHERS</option>
+                </select>
+            </div>
+            <div class="buttons">
+                <button type="button" class="approve">Approve</button>
+                <button type="button" class="disapprove">Disapprove</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

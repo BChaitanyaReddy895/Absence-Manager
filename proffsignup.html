@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="icon" href="favicon.ico">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-size: 14px;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+        .signup-link {
+            text-align: center;
+            margin-top: 10px;
+        }
+        #message {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Sign Up</h2>
+        <form id="signupForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="roll_number">Roll Number:</label>
+            <input type="text" id="roll_number" name="roll_number" required>
+
+            <label for="email">Reva Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit" class="submit-btn">Sign Up</button>
+        </form>
+        <div id="message"></div>
+        <div class="signup-link">
+            <p>Already have an account? <a href="professor-login.html">Login here</a></p>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // Initialize WebSocket connection
+        var ws = new WebSocket('ws://localhost:8080');
+
+        ws.onopen = function() {
+            console.log('WebSocket connection established.');
+        };
+
+        ws.onmessage = function(event) {
+            console.log('Message from server:', event.data);
+            var data = JSON.parse(event.data);
+            if (data.type === 'signup_response') {
+                var messageDiv = document.getElementById('message');
+                if (data.success) {
+                    messageDiv.innerHTML = '<p style="color: green;">' + data.message + '</p>';
+                    if (data.redirect) {
+                        setTimeout(function() {
+                            window.location.href = data.redirect;
+                        }, 2000); // Redirect after 2 seconds
+                    }
+                } else {
+                    messageDiv.innerHTML = '<p style="color: red;">' + data.message + '</p>';
+                }
+            }
+        };
+
+        ws.onclose = function() {
+            console.log('WebSocket connection closed.');
+        };
+
+        // Handle form submission
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting the traditional way
+
+            var name = document.getElementById('name').value;
+            var rollNumber = document.getElementById('roll_number').value;
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+
+            // Send signup data to the server
+            ws.send(JSON.stringify({
+                type: 'professor_signup',
+                data: {
+                    name: name,
+                    roll_number: rollNumber,
+                    email: email,
+                    password: password
+                }
+            }));
+        });
+    </script>
+</body>
+</html>

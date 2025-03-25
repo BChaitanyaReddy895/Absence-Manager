@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Details Form</title>
+    <link rel="icon" href="favicon.ico">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://media.getmyuni.com/azure/college-image/big/reva-university-revau-bangalore.jpg'); /* Replace with your image URL */
+            background-size:cover; /* Cover the entire background */
+            background-position: center;
+            background-repeat: no-repeat; /* Center the image */
+            font-family: Arial, sans-serif;
+        }
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.5); /* 50% transparent white background */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Optional: shadow for depth */
+            width: 90%; /* Responsive width */
+            max-width: 600px; /* Maximum width */
+            margin: 0 auto; /* Center the container */
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        textarea, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .event-details {
+            margin-top: 10px;
+            display: none;
+        }
+        .arrow {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: black;
+        }
+        .arrow::before {
+            content: "►";
+            margin-right: 5px;
+        }
+        .arrow.active::before {
+            content: "▼";
+        }
+        
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        .buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+        .approve {
+            background: #28a745;
+            color: #fff;
+        }
+        .approve:hover {
+            background: #218838;
+        }
+        .disapprove {
+            background: #dc3545;
+            color: #fff;
+        }
+        .disapprove:hover {
+            background: #c82333;
+        }
+        #other-event {
+            display: none;
+        }
+    </style>
+    <script>
+        function toggleEventDetails() {
+            const details = document.getElementById("event-details");
+            const arrow = document.querySelector(".arrow");
+            details.style.display = details.style.display === "none" ? "block" : "none";
+            arrow.classList.toggle("active");
+        }
+
+        function showOtherEventField(selectElement) {
+            const otherEvent = document.getElementById("other-event");
+            if (selectElement.value === "Other") {
+                otherEvent.style.display = "block";
+            } else {
+                otherEvent.style.display = "none";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Team Registration Form For Attendance Coordinator</h2>
+        <form>
+            <!-- Name input blocks -->
+            <label>Team members Name:</label>
+            <div class="input-group">
+                <input type="text" name="Name1" placeholder="Member 1" required>
+                <input type="text" name="Name2" placeholder="Member 2">
+                <input type="text" name="Name3" placeholder="Member 3">
+                <input type="text" name="Name4" placeholder="Member 4">
+                <input type="text" name="Name4" placeholder="others">
+            </div>
+
+            <!-- SRN input blocks -->
+            <label>SRN:</label>
+            <div class="input-group">
+                <input type="text" name="Srn1" placeholder="SRN 1" required>
+                <input type="text" name="Srn2" placeholder="SRN 2" required>
+                <input type="text" name="Srn3" placeholder="SRN 3" required>
+                <input type="text" name="Srn4" placeholder="SRN 4" required>
+                <input type="text" name="other" placeholder="others" required>
+            </div>
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+
+            <!-- Arrow to expand event details -->
+            <div class="arrow" onclick="toggleEventDetails()">Event Details</div>
+            
+            <!-- Expandable section for event details -->
+            <div class="event-details" id="event-details">
+                <label for="event">Select Event:</label>
+                <select id="event" name="event" onchange="showOtherEventField(this)" required>
+                    <option value="">-- Select Event type --</option>
+                    <option value="HACKATHON">HACKATHON</option>
+                    <option value="FACE">FACE</option>
+                    <option value="SPORTS">SPORTS</option>
+                    <option value="PLACEMENT">PLACEMENT</option>
+                    <option value="INTERSHIP">INTERSHIP</option>
+                    <option value="FDP">FDP</option>
+                    <option value="OTHERES">OTHERES</option>
+                </select>
+            </div>
+
+            
+            <div class="buttons">
+                <button type="button" class="approve">Approve</button>
+                <button type="button" class="disapprove">Disapprove</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

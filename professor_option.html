@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Options Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url('https://media.getmyuni.com/azure/college-image/big/reva-university-revau-bangalore.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+        /* Adding a semi-transparent overlay for better readability */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
+        .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: white;
+        }
+        .option {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .option span {
+            font-size: 18px;
+            margin-right: 15px;
+        }
+        .button {
+            background-color: orange;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #e69500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="option">
+            <span>Mentor</span>
+            <button class="button" id="mentorButton">Select</button>
+        </div>
+        <div class="option">
+            <span>Event Coordinator</span>
+            <button class="button" id="eventCoordinatorButton">Select</button>
+        </div>
+        <div class="option">
+            <span>Attendance Coordinator</span>
+            <button class="button" id="attendanceCoordinatorButton">Select</button>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // Initialize WebSocket connection
+        var ws = new WebSocket('ws://localhost:8080');
+
+        ws.onopen = function() {
+            console.log('WebSocket connection established.');
+        };
+
+        ws.onmessage = function(event) {
+            console.log('Message from server:', event.data);
+        };
+
+        ws.onclose = function() {
+            console.log('WebSocket connection closed.');
+        };
+
+        // Log button clicks to the WebSocket server
+        document.getElementById('mentorButton').addEventListener('click', function() {
+            ws.send(JSON.stringify({
+                type: 'professor_option_selected',
+                option: 'Mentor'
+            }));
+            window.location.href = 'mentor-login.html';
+        });
+
+        document.getElementById('eventCoordinatorButton').addEventListener('click', function() {
+            ws.send(JSON.stringify({
+                type: 'professor_option_selected',
+                option: 'Event Coordinator'
+            }));
+            window.location.href = 'mentor_eventcoordinator_login.html';
+        });
+
+        document.getElementById('attendanceCoordinatorButton').addEventListener('click', function() {
+            ws.send(JSON.stringify({
+                type: 'professor_option_selected',
+                option: 'Attendance Coordinator'
+            }));
+            window.location.href = 'attendance_coordinator_login.html';
+        });
+    </script>
+</body>
+</html>

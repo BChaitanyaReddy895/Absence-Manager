@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Details Form</title>
+    <link rel="icon" href="favicon.ico">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://media.getmyuni.com/azure/college-image/big/reva-university-revau-bangalore.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+        }
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        textarea, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .event-details {
+            margin-top: 10px;
+            display: none;
+        }
+        .arrow {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: black;
+        }
+        .arrow::before {
+            content: "►";
+            margin-right: 5px;
+        }
+        .arrow.active::before {
+            content: "▼";
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        .approve-btn {
+            width: 48%;
+            background-color: green;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .approve-btn:hover {
+            background-color: darkgreen;
+        }
+        .disapprove-btn {
+            width: 48%;
+            background-color: red;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .disapprove-btn:hover {
+            background-color: darkred;
+        }
+    </style>
+    <script>
+        function toggleEventDetails() {
+            const details = document.getElementById("event-details");
+            const arrow = document.querySelector(".arrow");
+            details.style.display = details.style.display === "none" ? "block" : "none";
+            arrow.classList.toggle("active");
+        }
+
+        function showOtherEventField(selectElement) {
+            const otherEvent = document.getElementById("other-event");
+            if (selectElement.value === "Other") {
+                otherEvent.style.display = "block";
+            } else {
+                otherEvent.style.display = "none";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Event Coordinator Form For Team</h2>
+        <form>
+            <!-- Name input blocks -->
+            <label>Team Members' Names:</label>
+            <div class="input-group">
+                <input type="text" name="Name1" placeholder="Member 1" required>
+                <input type="text" name="Name2" placeholder="Member 2">
+                <input type="text" name="Name3" placeholder="Member 3">
+                <input type="text" name="Name4" placeholder="Member 4">
+                <input type="text" name="Name5" placeholder="Others">
+            </div>
+
+            <!-- SRN input blocks -->
+            <label>SRN:</label>
+            <div class="input-group">
+                <input type="text" name="Srn1" placeholder="SRN 1" required>
+                <input type="text" name="Srn2" placeholder="SRN 2" required>
+                <input type="text" name="Srn3" placeholder="SRN 3" required>
+                <input type="text" name="Srn4" placeholder="SRN 4" required>
+                <input type="text" name="Srn5" placeholder="Other SRN" required>
+            </div>
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+
+            <!-- Arrow to expand event details -->
+            <div class="arrow" onclick="toggleEventDetails()">Event Details</div>
+
+            <!-- Expandable section for event details -->
+            <div class="event-details" id="event-details">
+                <label for="event">Event Name:</label>
+                <input type="text" id="event-name" name="event-name" placeholder="Enter Event Name" required>
+
+                <label for="event">Select Event Type:</label>
+                <select id="event" name="event" onchange="showOtherEventField(this)" required>
+                    <option value="">-- Select Event Type --</option>
+                    <option value="HACKATHON">HACKATHON</option>
+                    <option value="FACE">FACE</option>
+                    <option value="SPORTS">SPORTS</option>
+                    <option value="PLACEMENT">PLACEMENT</option>
+                    <option value="INTERNSHIP">INTERNSHIP</option>
+                    <option value="FDP">FDP</option>
+                    <option value="OTHERS">OTHERS</option>
+                </select>
+
+                
+            </div>
+
+            <!-- Approve and Disapprove buttons -->
+            <div class="button-container">
+                <button type="button" class="approve-btn">Approve</button>
+                <button type="button" class="disapprove-btn">Disapprove</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

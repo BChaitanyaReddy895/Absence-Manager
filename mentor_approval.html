@@ -1,0 +1,53 @@
+// Generate the HTML form with the fetched data
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor Approval Form</title>
+    <link rel="stylesheet" href="mentor.css">
+</head>
+<body>
+    <div class="form-container">
+        <h1>Mentor Approval Form</h1>
+        <form method="POST" action="mentor_approval.php">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="<?= htmlspecialchars($studentName) ?>" readonly>
+
+            <label for="srn">SRN:</label>
+            <input type="text" id="srn" name="srn" value="<?= htmlspecialchars($studentSRN) ?>" readonly>
+
+            <label for="course">Course:</label>
+            <input type="text" id="course" name="course" value="<?= htmlspecialchars($course) ?>" readonly>
+
+            <label for="section">Section:</label>
+            <input type="text" id="section" name="section" value="<?= htmlspecialchars($section) ?>" readonly>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" readonly><?= htmlspecialchars($description) ?></textarea>
+
+            <label for="approval">Approval Status:</label>
+            <label><input type="radio" name="approval" value="approve" required> Approve</label>
+            <label><input type="radio" name="approval" value="disapprove" required> Disapprove</label>
+
+            <div id="disapproval-reason-box" style="display: none;">
+                <label for="disapproval-reason">Reason for Disapproval:</label>
+                <textarea id="disapproval-reason" name="disapproval-reason"></textarea>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        // Function to toggle disapproval reason box visibility
+        document.querySelectorAll('input[name="approval"]').forEach(radio => {
+            radio.addEventListener('change', function () {
+                const disapprovalBox = document.getElementById('disapproval-reason-box');
+                disapprovalBox.style.display = this.value === 'disapprove' ? 'block' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>

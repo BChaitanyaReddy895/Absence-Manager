@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Form</title>
+    <link rel="icon" href="favicon.ico">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('https://media.getmyuni.com/azure/college-image/big/reva-university-revau-bangalore.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 150vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            text-align: left;
+            background: rgba(255, 242, 225, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 400px;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"], textarea, select, input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #message {
+            margin-top: 15px;
+            font-weight: bold;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Leave Form</h2>
+        <form id="leaveForm">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+                <label for="srn">SRN:</label>
+                <input type="text" id="srn" name="srn" placeholder="Enter your SRN" required>
+            </div>
+            <div class="form-group">
+                <label for="course">Course:</label>
+                <input type="text" id="course" name="course" placeholder="Enter your course" required>
+            </div>
+            <div class="form-group">
+                <label for="email">REVA Email ID:</label>
+                <input type="text" id="email" name="email" placeholder="Enter your Email ID" required>
+            </div>
+            <div class="form-group">
+                <label for="section">Section:</label>
+                <select id="section" name="section" required>
+                    <option value="">Select Section</option>
+                    <option value="CSE A">CSE A</option>
+                    <option value="CSE B">CSE B</option>
+                    <option value="CSE C">CSE C</option>
+                    <option value="CSE D">CSE D</option>
+                    <option value="CSE E">CSE E</option>
+                    <option value="CSE F">CSE F</option>
+                    <option value="AI & DS A">AI & DS A</option>
+                    <option value="AI & DS B">AI & DS B</option>
+                    <option value="AI & DS C">AI & DS C</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="mentorName">Mentor Name:</label>
+                <input type="text" id="mentorName" name="mentorName" placeholder="Enter your mentor's name" required>
+            </div>
+            <div class="form-group">
+                <label for="mentorEmail">Mentor Email:</label>
+                <input type="text" id="mentorEmail" name="mentorEmail" placeholder="Enter your mentor's email" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" rows="4" placeholder="Enter the description of your leave request" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="upload">Upload Supporting Files:</label>
+                <input type="file" id="upload" name="upload">
+            </div>
+            <button type="submit">Submit Leave Form</button>
+        </form>
+        <div id="message"></div>
+    </div>
+
+    <script type="text/javascript">
+        var ws = new WebSocket('ws://localhost:8080');
+    
+        ws.onopen = function() {
+            console.log('WebSocket connection established.');
+            ws.send(JSON.stringify({ type: 'page_load', page: 'leaveform' }));
+        };
+    
+        ws.onmessage = function(event) {
+            console.log('Message from server:', event.data);
+            var data = JSON.parse(event.data);
+            if (data.type === 'leave_response') {
+                if (data.success) {
+                    alert(data.message);
+                } else {
+                    alert(data.message);
+                }
+            }
+        };
+    
+        ws.onclose = function() {
+            console.log('WebSocket connection closed.');
+        };
+    
+        ws.onerror = function(error) {
+            console.error('WebSocket error:', error);
+        };
+    
+        document.getElementById('leaveForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    var formData = {
+        name: document.getElementById('name').value,
+        srn: document.getElementById('srn').value,
+        course: document.getElementById('course').value,
+        email: document.getElementById('email').value,
+        section: document.getElementById('section').value,
+        mentorName: document.getElementById('mentorName').value,
+        mentorEmail: document.getElementById('mentorEmail').value,
+        description: document.getElementById('description').value,
+        upload: document.getElementById('upload').files[0] ? document.getElementById('upload').files[0].name : null
+    };
+
+    // Send form data to the WebSocket server
+    ws.send(JSON.stringify({ type: 'leave_submission', data: formData }));
+
+    // Handle WebSocket response
+    ws.onmessage = function(event) {
+        var data = JSON.parse(event.data);
+        if (data.type === 'leave_response') {
+            var messageDiv = document.getElementById('message');
+            if (data.success) {
+                // Display success message in an <h3> heading
+                messageDiv.innerHTML = '<h3 style="color: green;">Leave form submitted successfully!</h3>';
+            } else {
+                // Display error message
+                messageDiv.innerHTML = '<h3 style="color: red;">' + data.message + '</h3>';
+            }
+        }
+    };
+});
+    </script>
+</body>
+</html>

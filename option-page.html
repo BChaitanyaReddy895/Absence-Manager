@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave and Event Management System</title>
+    <link rel="icon" href="favicon.ico">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('https://media.getmyuni.com/azure/college-image/big/reva-university-revau-bangalore.jpg'); /* Replace with your image */
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            text-align: center;
+            background: rgba(255, 242, 225, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 400px;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .orange-button {
+            background-color: orange;
+            color: white;
+        }
+        .red-button {
+            background-color: red;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Options Page -->
+    <div class="container">
+        <h1>Options</h1>
+        <button class="button orange-button" onclick="redirectToLeaveForm()">Leave Form</button>
+        <button class="button orange-button" onclick="redirectToEventForm()">Event Form</button>
+        <button class="button red-button" onclick="logout()">Logout</button>
+    </div>
+
+    <script type="text/javascript">
+        // Initialize WebSocket connection
+        var ws = new WebSocket('ws://localhost:8080');
+
+        ws.onopen = function() {
+            console.log('WebSocket connection established.');
+            // Notify the server that the user is on the options page
+            ws.send(JSON.stringify({ type: 'page_load', page: 'options' }));
+        };
+
+        ws.onmessage = function(event) {
+            console.log('Message from server:', event.data);
+            var data = JSON.parse(event.data);
+            if (data.type === 'notification') {
+                alert(data.message); // Display notifications from the server
+            }
+        };
+
+        ws.onclose = function() {
+            console.log('WebSocket connection closed.');
+        };
+
+        // Function to redirect to the leave form
+        function redirectToLeaveForm() {
+            ws.send(JSON.stringify({ type: 'redirect', page: 'leaveform' }));
+            window.location.href = 'leaveform.html';
+        }
+
+        // Function to redirect to the event form
+        function redirectToEventForm() {
+            ws.send(JSON.stringify({ type: 'redirect', page: 'eventform' }));
+            window.location.href = 'option_event.html';
+        }
+
+        // Function to handle logout
+        function logout() {
+            ws.send(JSON.stringify({ type: 'logout' }));
+            window.location.href = 'logout.php';
+        }
+    </script>
+</body>
+</html>

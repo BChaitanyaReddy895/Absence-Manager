@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Coordinator Form</title>
+    <link rel="icon" href="favicon.ico">
+    <style>
+        /* External CSS Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('https://media.getmyuni.com/azure/college-image/big/reva-university-revau-bangalore.jpg'); /* Add your background image file in the same directory */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #0c0b0b;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: 100px auto;
+            background: rgba(255, 242, 225, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #f4b400;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        .buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+        .approve {
+            background: #28a745;
+            color: #fff;
+        }
+        .approve:hover {
+            background: #218838;
+        }
+        .disapprove {
+            background: #dc3545;
+            color: #fff;
+        }
+        .disapprove:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Attendance Coordinator Form</h2>
+        <form>
+    
+            <label for="stud-name">Student Name:</label>
+            <input type="text" id="stud-name" name="stud-name" placeholder=" student name" required>
+            
+            <label for="stud-srn">Student SRN:</label>
+            <input type="text" id="stud-srn" name="stud-srn" placeholder="student SRN" required>
+
+            <label for="stud-course">Course:</label>
+            <input type="text" id="stud-course" name="stud-course" placeholder="student Course" required>
+
+            <label for="stud-section">Section:</label>
+            <select id="stud-section" name="stud-section" required>
+                <option value="" disabled selected>Select Section</option>
+                <optgroup label="CSE">
+                    <option value="CSE A">CSE A</option>
+                    <option value="CSE B">CSE B</option>
+                    <option value="CSE C">CSE C</option>
+                    <option value="CSE D">CSE D</option>
+                    <option value="CSE E">CSE E</option>
+                    <option value="CSE F">CSE F</option>
+                </optgroup>
+                <optgroup label="AIDS">
+                    <option value="AIDS A">AIDS A</option>
+                    <option value="AIDS B">AIDS B</option>
+                    <option value="AIDS C">AIDS C</option>
+                </optgroup>
+            </select>
+
+            <label for="stud-course">Description:</label>
+            <input type="text" id="stud-desc" name="stud-desc" placeholder="student Description" required>
+
+            <label for="stud-course">Uploded files:</label>
+            <input type="text" id="stud-files" name="stud-files" placeholder="student files" required>
+
+
+
+            
+            <div class="buttons">
+                <button type="button" class="approve">Approve</button>
+                <button type="button" class="disapprove">Disapprove</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

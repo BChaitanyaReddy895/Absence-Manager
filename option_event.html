@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selection Page</title>
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" href="event.css">
+    <style>
+        /* Page styling */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://media.getmyuni.com/azure/college-image/big/reva-university-revau-bangalore.jpg');
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Container styling */
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 50px 50px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Option styling */
+        .option {
+            margin: 20px 0;
+            font-size: 24px;
+        }
+
+        /* Button styling */
+        button {
+            padding: 10px 30px;
+            font-size: 18px;
+            color: white;
+            background-color: #39a04f;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Message display */
+        #message {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .loading {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Select Event Type</h2>
+        <div class="option">
+            <input type="radio" id="individual" name="selection" value="individual">
+            <label for="individual">Individual</label><br>
+            <input type="radio" id="team" name="selection" value="team">
+            <label for="team">Team</label><br><br>
+
+            <button id="selectButton">Select</button>
+            <div id="message"></div>
+        </div>
+    </div>
+
+    <script>
+        // Establish WebSocket connection
+        var ws = new WebSocket('ws://localhost:8080');
+
+        ws.onopen = function() {
+            console.log('WebSocket connection established.');
+        };
+
+        ws.onerror = function(error) {
+            console.error('WebSocket error:', error);
+            document.getElementById('message').innerHTML = '<h3 style="color: red;">WebSocket connection failed.</h3>';
+        };
+
+        ws.onclose = function() {
+            console.log('WebSocket connection closed.');
+        };
+
+        ws.onmessage = function(event) {
+            var data = JSON.parse(event.data);
+            var messageDiv = document.getElementById('message');
+
+            if (data.type === 'selection_response') {
+                if (data.success) {
+                    messageDiv.innerHTML = '<h3 class="loading">Redirecting...</h3>';
+                    setTimeout(function() {
+                        window.location.href = data.redirect;
+                    }, 1500); // Delay redirection for better UX
+                } else {
+                    messageDiv.innerHTML = '<h3 style="color: red;">' + data.message + '</h3>';
+                }
+            }
+        };
+
+        document.getElementById('selectButton').addEventListener('click', function() {
+    var selection = document.querySelector('input[name="selection"]:checked');
+    if (selection) {
+        fetch('option_event.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                type: 'selection_submission',
+                data: { selection: selection.value }
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('message').innerHTML = `<h3 style="color: green;">${data.message}</h3>`;
+                window.location.href = data.redirect;
+            } else {
+                document.getElementById('message').innerHTML = `<h3 style="color: red;">${data.message}</h3>`;
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    } else {
+        document.getElementById('message').innerHTML = '<h3 style="color: red;">Please select an option.</h3>';
+    }
+});
+    </script>
+</body>
+</html>

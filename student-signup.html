@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Signup</title>
+    <link rel="icon" href="favicon.ico">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('https://media.getmyuni.com/azure/college-image/big/reva-university-revau-bangalore.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            text-align: center;
+            background: rgba(255, 242, 225, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 400px;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .input-field {
+            padding: 10px;
+            margin: 10px 0;
+            width: 90%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: orange;
+            color: white;
+            font-weight: bold;
+        }
+        .login-link {
+            margin-top: 15px;
+            display: block;
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .login-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Student Signup</h1>
+        <form id="signupForm">
+            <input type="text" id="full_name" placeholder="Enter Full Name" class="input-field" required><br>
+            <input type="text" id="SRN" placeholder="Enter SRN" class="input-field" required><br>
+            <input type="email" id="REVA_Email_id" placeholder="Enter REVA Email" class="input-field" required><br>
+            <input type="password" id="password" placeholder="Enter Password" class="input-field" required><br>
+            <input type="tel" id="phone_number" placeholder="Enter Phone Number" class="input-field" required><br>
+            <button type="submit" class="button">Submit</button>
+        </form>
+        <a href="student-login.html" class="login-link">Already have an account? Log in here</a>
+    </div>
+
+    <script type="text/javascript">
+        // Initialize WebSocket connection
+        var ws = new WebSocket('ws://localhost:8080');
+
+        ws.onopen = function() {
+            console.log('WebSocket connection established.');
+        };
+
+        ws.onmessage = function(event) {
+            console.log('Message from server:', event.data);
+            var data = JSON.parse(event.data);
+            if (data.type === 'signup_response') {
+                if (data.success) {
+                    alert(data.message); // Display success message
+                    window.location.href = 'student-login.html'; // Redirect to login page
+                } else {
+                    alert(data.message); // Display error message
+                }
+            }
+        };
+
+        ws.onclose = function() {
+            console.log('WebSocket connection closed.');
+        };
+
+        // Handle form submission
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting the traditional way
+
+            var full_name = document.getElementById('full_name').value;
+            var SRN = document.getElementById('SRN').value;
+            var REVA_Email_id = document.getElementById('REVA_Email_id').value;
+            var password = document.getElementById('password').value;
+            var phone_number = document.getElementById('phone_number').value;
+
+            // Send signup data to the server
+            ws.send(JSON.stringify({
+                type: 'signup',
+                full_name: full_name,
+                SRN: SRN,
+                REVA_Email_id: REVA_Email_id,
+                password: password,
+                phone_number: phone_number
+            }));
+        });
+    </script>
+</body>
+</html>

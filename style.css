@@ -1,0 +1,94 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7fc;
+    margin: 0;
+    padding: 20px;
+}
+
+h2 {
+    color: #4CAF50;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.leave-form {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: transform 0.3s;
+}
+
+.leave-form:hover {
+    transform: scale(1.02);
+}
+
+.leave-form p {
+    margin: 10px 0;
+}
+
+.leave-form strong {
+    color: #333;
+}
+
+.leave-form .status-approved {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.leave-form .status-disapproved {
+    color: #f44336;
+    font-weight: bold;
+}
+
+.leave-form form {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.leave-form input[type="radio"], .leave-form textarea {
+    margin-right: 10px;
+}
+
+.leave-form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    min-height: 80px;
+}
+
+.leave-form button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.leave-form button:hover {
+    background-color: #45a049;
+}
+
+.form-actions {
+    margin-top: 10px;
+}
+
+.form-actions input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.form-actions input[type="submit"]:hover {
+    background-color: #1976D2;
+}

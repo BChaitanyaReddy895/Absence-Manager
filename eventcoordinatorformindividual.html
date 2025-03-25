@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Details Form</title>
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://media.getmyuni.com/azure/college-image/big/reva-university-revau-bangalore.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+        }
+
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            width: 60%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        select {
+            width: 70%;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 48%;
+            transition: background-color 0.3s ease;
+        }
+
+        .approve-btn {
+            background-color: green;
+        }
+
+        .approve-btn:hover {
+            background-color: darkgreen;
+        }
+
+        .disapprove-btn {
+            background-color: red;
+        }
+
+        .disapprove-btn:hover {
+            background-color: darkred;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Event Coordinator Form For Individual</h2>
+        <form>
+            <!-- Student Details -->
+            <div class="form-group">
+                <label for="name">Student Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="srn">SRN</label>
+                <input type="text" id="srn" name="srn" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Student Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Student Phone</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+
+            <!-- Event Details -->
+            <div class="form-group">
+                <label for="event-name">Event Name</label>
+                <input type="text" id="event-name" name="event-name" required>
+            </div>
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+            <div class="form-group">
+                <label for="event">Select Event Type</label>
+                <select id="event" name="event" required>
+                    <option value="">--Select an event--</option>
+                    <option value="HACKATHON">HACKATHON</option>
+                    <option value="FACE">FACE</option>
+                    <option value="SPORTS">SPORTS</option>
+                    <option value="PLACEMENT">PLACEMENT</option>
+                    <option value="INTERNSHIP">INTERNSHIP</option>
+                    <option value="FDP">FDP</option>
+                    <option value="OTHERS">OTHERS</option>
+                </select>
+            </div>
+
+            
+
+            <!-- Buttons Section -->
+            <div class="form-group button-container">
+                <button type="button" class="approve-btn">Approve</button>
+                <button type="button" class="disapprove-btn">Disapprove</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
